@@ -11,8 +11,5 @@ class Localidade extends Model
 
     protected $fillable = ['nome', 'endereco', 'contato'];
 
-    public function setores()
-    {
-        return $this->hasMany(Setor::class);
-    }
+
 }

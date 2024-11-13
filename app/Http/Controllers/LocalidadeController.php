@@ -2,101 +2,100 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Setor;
 use App\Models\Localidade;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class SetorController extends Controller
+class LocalidadeController extends Controller
 {
     /**
      * Construtor para gerenciar permissões.
      */
     function __construct()
     {
-        $this->middleware('permission:setor-list|setor-create|setor-edit|setor-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:setor-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:setor-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:setor-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:localidade-list|localidade-create|localidade-edit|localidade-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:localidade-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:localidade-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:localidade-delete', ['only' => ['destroy']]);
     }
 
     /**
-     * Exibe a lista de setores.
+     * Exibe a lista de localidades.
      */
     public function index(): View
     {
-        $setores = Setor::with('localidade')->latest()->paginate(5);
-        return view('setores.index', compact('setores'))
+        $localidades = Localidade::latest()->paginate(5);
+        return view('localidades.index', compact('localidades'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
-     * Exibe o formulário de criação de um novo setor.
+     * Exibe o formulário de criação de uma nova localidade.
      */
     public function create(): View
     {
-        $localidades = Localidade::all();
-        return view('setores.create', compact('localidades'));
+        return view('localidades.create');
     }
 
     /**
-     * Armazena um novo setor.
+     * Armazena uma nova localidade.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'localidade_id' => 'required|exists:localidades,id',
+            'endereco' => 'required|string|max:255',
+            'contato' => 'required|string|max:255',
         ]);
 
-        Setor::create($request->all());
+        Localidade::create($request->all());
 
-        return redirect()->route('setores.index')
-                         ->with('success', 'Setor criado com sucesso.');
+        return redirect()->route('localidades.index')
+                         ->with('success', 'Localidade criada com sucesso.');
     }
 
     /**
-     * Exibe um setor específico.
+     * Exibe uma localidade específica.
      */
-    public function show(Setor $setor): View
+    public function show(Localidade $localidade): View
     {
-        return view('setores.show', compact('setor'));
+        return view('localidades.show', compact('localidade'));
     }
 
     /**
-     * Exibe o formulário para edição de um setor.
+     * Exibe o formulário para edição de uma localidade.
      */
-    public function edit(Setor $setor): View
+    public function edit(Localidade $localidade): View
     {
-        $localidades = Localidade::all();
-        return view('setores.edit', compact('setor', 'localidades'));
+        return view('localidades.edit', compact('localidade'));
     }
 
     /**
-     * Atualiza um setor específico.
+     * Atualiza uma localidade específica.
      */
-    public function update(Request $request, Setor $setor): RedirectResponse
+    public function update(Request $request, Localidade $localidade): RedirectResponse
     {
         $request->validate([
             'nome' => 'required|string|max:255',
-            'localidade_id' => 'required|exists:localidades,id',
+            'endereco' => 'required|string|max:255',
+            'contato' => 'required|string|max:255',
         ]);
 
-        $setor->update($request->all());
+        $localidade->update($request->all());
 
-        return redirect()->route('setores.index')
-                         ->with('success', 'Setor atualizado com sucesso.');
+        return redirect()->route('localidades.index')
+                         ->with('success', 'Localidade atualizada com sucesso.');
     }
 
     /**
-     * Remove um setor específico.
+     * Remove uma localidade específica.
      */
-    public function destroy(Setor $setor): RedirectResponse
+    public function destroy(Localidade $localidade): RedirectResponse
     {
-        $setor->delete();
+        $localidade->delete();
 
-        return redirect()->route('setores.index')
-                         ->with('success', 'Setor excluído com sucesso.');
+        return redirect()->route('localidades.index')
+                         ->with('success', 'Localidade excluída com sucesso.');
     }
 }
