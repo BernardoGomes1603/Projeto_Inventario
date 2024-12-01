@@ -27,30 +27,26 @@
     @csrf
 
     <div class="row">
-        <!-- Campo Modelo -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <label for="modelo"><strong>Modelo:</strong></label>
-            <input id="modelo" type="text" name="modelo" class="form-control" placeholder="Modelo" value="{{ old('modelo') }}" required>
+            <input id="modelo" type="text" name="modelo" class="form-control" value="{{ old('modelo') }}" required>
         </div>
 
-        <!-- Campo Especificações -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <label for="especificacoes"><strong>Especificações:</strong></label>
-            <textarea id="especificacoes" name="especificacoes" class="form-control" placeholder="Especificações">{{ old('especificacoes') }}</textarea>
+            <textarea id="especificacoes" name="especificacoes" class="form-control" required>{{ old('especificacoes') }}</textarea>
         </div>
 
-        <!-- Campo Descrição -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
-            <label for="descricao"><strong>Observação:</strong></label>
-            <textarea id="descricao" name="descricao" class="form-control" placeholder="Descrição">{{ old('descricao') }}</textarea>
+            <label for="descricao"><strong>Descrição:</strong></label>
+            <textarea id="descricao" name="descricao" class="form-control">{{ old('descricao') }}</textarea>
         </div>
 
-        <!-- Campo Localidade -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <label for="localidade_id"><strong>Localidade:</strong></label>
             <select id="localidade_id" name="localidade_id" class="form-control" required>
                 <option value="">Selecione a Localidade</option>
-                @foreach ($localidade as $localidade)
+                @foreach ($localidades as $localidade)
                     <option value="{{ $localidade->id }}" {{ old('localidade_id') == $localidade->id ? 'selected' : '' }}>
                         {{ $localidade->nome }}
                     </option>
@@ -58,7 +54,6 @@
             </select>
         </div>
 
-        <!-- Campo Usuário -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <label for="user_id"><strong>Usuário:</strong></label>
             <select id="user_id" name="user_id" class="form-control" required>
@@ -71,7 +66,6 @@
             </select>
         </div>
 
-        <!-- Campo Status -->
         <div class="col-xs-12 col-sm-12 col-md-12 mb-3">
             <label for="status_id"><strong>Status:</strong></label>
             <select id="status_id" name="status_id" class="form-control" required>
@@ -84,9 +78,8 @@
             </select>
         </div>
 
-        <!-- Botão Salvar -->
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-sm mb-3 mt-2"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+            <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
         </div>
     </div>
 </form>

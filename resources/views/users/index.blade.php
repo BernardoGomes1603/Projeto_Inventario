@@ -12,17 +12,25 @@
     </div>
 </div>
 
+<!-- Barra de busca -->
+<form method="GET" action="{{ route('users.index') }}" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search by name or email" value="{{ request()->get('search') }}">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+    </div>
+</form>
+
 @session('success')
-    <div class="alert alert-success" role="alert"> 
+    <div class="alert alert-success" role="alert">
         {{ $value }}
     </div>
 @endsession
 
 <table class="table table-bordered">
    <tr>
-       <th>No</th>
-       <th>Name</th>
-       <th>Email</th>
+       <th><a href="?sort=id&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">No</a></th>
+       <th><a href="?sort=name&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">Name</a></th>
+       <th><a href="?sort=email&direction={{ request('direction') == 'asc' ? 'desc' : 'asc' }}">Email</a></th>
        <th>Roles</th>
        <th width="280px">Action</th>
    </tr>
@@ -49,10 +57,15 @@
               </form>
         </td>
     </tr>
- @endforeach
+   @endforeach
 </table>
 
 {!! $data->links('pagination::bootstrap-5') !!}
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<!-- Botão para Manage Roles -->
+<div class="d-flex justify-content-between mt-3">
+    <a class="btn btn-outline-secondary" href="{{ route('roles.index') }}"><i class="fa-solid fa-user-shield"></i> Manage Roles</a>
+</div>
+
+
 @endsection

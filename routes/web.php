@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('status',StatuController::class);
     Route::resource('localidades', LocalidadeController::class);
-    Route::resource('itens', ItemController::class);
+    Route::resource('itens', ItemController::class)->parameters([
+        'itens' => 'item',
+    ]);
 
 });

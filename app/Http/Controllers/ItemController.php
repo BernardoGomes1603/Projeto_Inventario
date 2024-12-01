@@ -30,25 +30,31 @@ class ItemController extends Controller
 
     public function create(): View
     {
-        $localidade = Localidade::all();
+        $localidades = Localidade::all();
         $statuses = Status::all();
         $users = User::all();
 
-        return view('itens.create', compact('localidade', 'statuses', 'users'));
+        return view('itens.create', compact('localidades', 'statuses', 'users'));
     }
 
     public function store(Request $request): RedirectResponse
     {
+        // Debug: Verifique os dados enviados
+        if (env('APP_DEBUG')) {
+            logger('Dados recebidos no request:', $request->all());
+        }
+
         $request->validate([
             'modelo' => 'required|string|max:255',
-            'especificacoes' => 'nullable|string',
+            'especificacoes' => 'required|string',
             'descricao' => 'nullable|string',
             'localidade_id' => 'required|exists:localidade,id',
             'user_id' => 'required|exists:users,id',
             'status_id' => 'required|exists:status,id',
         ]);
 
-        Item::create($request->all());
+        // Criando o item
+        $item = Item::create($request->only(['modelo', 'especificacoes', 'descricao', 'localidade_id', 'user_id', 'status_id']));
 
         return redirect()->route('itens.index')
                          ->with('success', 'Item criado com sucesso.');
@@ -56,25 +62,26 @@ class ItemController extends Controller
 
     public function show(Item $item): View
     {
-        $item->load(['localidade', 'user', 'statuses']);
+        $item->load(['localidade', 'user', 'status']);
 
         return view('itens.show', compact('item'));
     }
 
     public function edit(Item $item): View
     {
-        $localidade = Localidade::all();
-        $statuses = Status::all();
-        $users = User::all();
+      $localidades = Localidade::all();
+      $statuses = Status::all();
+      $users = User::all();
 
-        return view('itens.edit', compact('item', 'localidade', 'status', 'users'));
+     return view('itens.edit', compact('item', 'localidades', 'statuses', 'users'));
     }
+
 
     public function update(Request $request, Item $item): RedirectResponse
     {
         $request->validate([
             'modelo' => 'required|string|max:255',
-            'especificacoes' => 'nullable|string',
+            'especificacoes' => 'required|string',
             'descricao' => 'nullable|string',
             'localidade_id' => 'required|exists:localidade,id',
             'user_id' => 'required|exists:users,id',

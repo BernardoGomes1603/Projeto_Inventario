@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('items', function (Blueprint $table) {
@@ -18,21 +15,24 @@ return new class extends Migration
             $table->text('descricao')->nullable();
 
             $table->unsignedBigInteger('localidade_id')->nullable();
-            $table->foreign('localidade_id')->references('id')->on('localidade');
+            $table->foreign('localidade_id')
+                ->references('id')->on('localidade')
+                ->onDelete('set null');
 
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('set null');
 
             $table->unsignedBigInteger('status_id')->nullable();
-            $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('status_id')
+                ->references('id')->on('status')
+                ->onDelete('set null');
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('items');

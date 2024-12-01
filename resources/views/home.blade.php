@@ -18,59 +18,30 @@
                         </div>
                     @endif
 
-                    <p>{{ __('Você está logado!') }}</p>
+                    <p>{{ __('Você está logado, ') }} <strong>{{ Auth::user()->name }}</strong>!</p>
 
-                    <!-- Informações do usuário em Cards -->
+                    <!-- Botões Empilhados -->
                     <div class="row mt-4">
-                        <!-- Exemplo: Card de usuários -->
-                        <div class="col-md-4 mb-3">
-                            <div class="card text-center shadow-sm">
-                                <div class="card-body">
-                                    <h5><i class="fas fa-users fa-2x text-primary"></i></h5>
-                                    <h6 class="card-title mt-2">Usuários Ativos</h6>
-                                    <p class="card-text display-6">42</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Exemplo: Card de notificações -->
-                        <div class="col-md-4 mb-3">
-                            <div class="card text-center shadow-sm">
-                                <div class="card-body">
-                                    <h5><i class="fas fa-bell fa-2x text-warning"></i></h5>
-                                    <h6 class="card-title mt-2">Notificações</h6>
-                                    <p class="card-text display-6">3</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Exemplo: Card de configurações -->
-                        <div class="col-md-4 mb-3">
-                            <div class="card text-center shadow-sm">
-                                <div class="card-body">
-                                    <h5><i class="fas fa-cogs fa-2x text-success"></i></h5>
-                                    <h6 class="card-title mt-2">Configurações</h6>
-                                    <p class="card-text display-6">5</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Acesso rápido -->
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <a href="{{ route('users.index') }}" class="btn btn-outline-primary w-100">
-                                <i class="fas fa-user-cog"></i> Gerenciar Usuários
+                        <div class="col-12 mb-3">
+                            <!-- Botão de Itens -->
+                            <a href="{{ route('itens.index') }}" class="btn btn-outline-success w-100 shadow-sm d-flex align-items-center justify-content-between">
+                                <span><i class="fa-solid fa-laptop"></i> Itens Registrados</span>
+                                <span class="badge bg-danger rounded-pill">{{ $totalItens }}</span>
                             </a>
                         </div>
-                        <div class="col-md-4">
-                            <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary w-100">
-                                <i class="fas fa-user-shield"></i> Gerenciar Funções
+
+                        <div class="col-12 mb-3">
+                            <!-- Botão de Usuários -->
+                            <a href="{{ route('users.index') }}" class="btn btn-outline-primary w-100 shadow-sm d-flex align-items-center justify-content-between">
+                                <span><i class="fas fa-users"></i> Usuários Ativos</span>
+                                <span class="badge bg-success rounded-pill">{{ $totalUsuarios }}</span>
                             </a>
                         </div>
-                        <div class="col-md-4">
-                            <a href="{{ route('localidades.index') }}" class="btn btn-outline-info w-100">
-                                <i class="fas fa-map-marker-alt"></i> Localidades
+
+                        <div class="col-12">
+                            <!-- Botão de Localidades -->
+                            <a href="{{ route('localidades.index') }}" class="btn btn-outline-info w-100 shadow-sm">
+                                <i class="fas fa-map-marker-alt"></i> Gerenciar Localidades
                             </a>
                         </div>
                     </div>

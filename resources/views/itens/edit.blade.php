@@ -46,44 +46,40 @@
                 <textarea name="descricao" class="form-control" placeholder="Descrição">{{ $item->descricao }}</textarea>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Localidade:</strong>
-                <select name="idLocalidade" class="form-control">
-                    <option value="">Selecione a Localidade</option>
-                    @foreach ($localidades as $localidade)
-                        <option value="{{ $localidade->id }}" {{ $item->idLocalidade == $localidade->id ? 'selected' : '' }}>
-                            {{ $localidade->nome }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="form-group">
+            <strong>Localidade:</strong>
+            <select name="localidade_id" class="form-control">
+                <option value="">Selecione a Localidade</option>
+                @foreach ($localidades as $localidade)
+                    <option value="{{ $localidade->id }}" {{ $item->localidade_id == $localidade->id ? 'selected' : '' }}>
+                        {{ $localidade->nome }}
+                    </option>
+                @endforeach
+            </select>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Usuário:</strong>
-                <select name="idUser" class="form-control">
-                    <option value="">Selecione o Usuário</option>
-                    @foreach ($usuarios as $usuario)
-                        <option value="{{ $usuario->id }}" {{ $item->idUser == $usuario->id ? 'selected' : '' }}>
-                            {{ $usuario->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+
+        <div class="form-group">
+            <strong>Usuário:</strong>
+            <select name="user_id" class="form-control">
+                <option value="">Selecione o Usuário</option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}" {{ $item->user_id == $user->id ? 'selected' : '' }}>
+                        {{ $user->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Status:</strong>
-                <select name="idStatus" class="form-control">
-                    <option value="">Selecione o Status</option>
-                    @foreach ($status as $stat)
-                        <option value="{{ $stat->id }}" {{ $item->idStatus == $stat->id ? 'selected' : '' }}>
-                            {{ $stat->descricao }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+
+        <div class="form-group">
+            <strong>Status:</strong>
+            <select name="status_id" class="form-control">
+                <option value="">Selecione o Status</option>
+                @foreach ($statuses as $status)
+                    <option value="{{ $status->id }}" {{ $item->status_id == $status->id ? 'selected' : '' }}>
+                        {{ $status->descricao }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary btn-sm mb-2 mt-2"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>

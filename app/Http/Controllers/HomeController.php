@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalItens = \App\Models\Item::count();
+        $totalUsuarios = \App\Models\User::count();
+
+        return view('home', compact('totalItens', 'totalUsuarios'));
     }
 }
