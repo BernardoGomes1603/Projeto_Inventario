@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LocalidadeController;
 use App\Http\Controllers\StatuController;
+use App\Http\Controllers\ItemController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,4 +22,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('status',StatuController::class);
     Route::resource('localidades', LocalidadeController::class);
+    Route::resource('itens', ItemController::class);
+
 });

@@ -8,12 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Status extends Model
 {
     use HasFactory;
+
+    /**
+     * Nome da tabela associada ao modelo.
+     *
+     * @var string
+     */
     protected $table = 'status';
 
     /**
-     * The attributes that are mass assignable.
+     * Os atributos que podem ser atribuídos em massa.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = ['descricao'];
+
+    /**
+     * Relacionamento: Um status pode ser associado a vários itens.
+     */
+    public function itens()
+    {
+        return $this->hasMany(Item::class, 'Status_id');
+    }
 }
