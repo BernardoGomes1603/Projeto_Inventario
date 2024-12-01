@@ -1,0 +1,22 @@
+body {
+    font-family: Figtree, sans-serif;
+    background-color: #f0f4f8; /* Fundo claro */
+    color: #333;
+}
+h1, h2 {
+    color: #0277BD; /* Azul claro */
+}
+.highlight {
+    color: #4CAF50; /* Verde */
+    font-weight: bold;
+}
+.login-link {
+    background-color: #4CAF50; /* Verde claro */
+}
+.login-link:hover {
+    background-color: #388E3C; /* Verde escuro */
+}
+.footer {
+    background-color: #0277BD; /* Azul escuro */
+    color: #fff;
+}

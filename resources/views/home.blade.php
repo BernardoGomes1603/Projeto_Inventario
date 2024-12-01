@@ -24,9 +24,9 @@
                     <div class="row mt-4">
                         <div class="col-12 mb-3">
                             <!-- Botão de Itens -->
-                            <a href="{{ route('itens.index') }}" class="btn btn-outline-success w-100 shadow-sm d-flex align-items-center justify-content-between">
+                            <a href="{{ route('itens.index') }}" class="btn btn-outline-primary w-100 shadow-sm d-flex align-items-center justify-content-between">
                                 <span><i class="fa-solid fa-laptop"></i> Itens Registrados</span>
-                                <span class="badge bg-danger rounded-pill">{{ $totalItens }}</span>
+                                <span class="badge bg-primary rounded-pill">{{ $totalItens }}</span>
                             </a>
                         </div>
 
@@ -34,14 +34,15 @@
                             <!-- Botão de Usuários -->
                             <a href="{{ route('users.index') }}" class="btn btn-outline-primary w-100 shadow-sm d-flex align-items-center justify-content-between">
                                 <span><i class="fas fa-users"></i> Usuários Ativos</span>
-                                <span class="badge bg-success rounded-pill">{{ $totalUsuarios }}</span>
+                                <span class="badge bg-primary rounded-pill">{{ $totalUsuarios }}</span>
                             </a>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
                             <!-- Botão de Localidades -->
-                            <a href="{{ route('localidades.index') }}" class="btn btn-outline-info w-100 shadow-sm">
-                                <i class="fas fa-map-marker-alt"></i> Gerenciar Localidades
+                            <a href="{{ route('localidades.index') }}" class="btn btn-outline-primary w-100 shadow-sm d-flex align-items-center justify-content-between">
+                                <span><i class="fas fa-map-marker-alt"></i> Gerenciar Localidades</span>
+                                <span class="badge bg-primary rounded-pill">{{ $totalLocalidades }}</span>
                             </a>
                         </div>
                     </div>

@@ -23,9 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Recupera o total de itens
         $totalItens = \App\Models\Item::count();
+
+        // Recupera o total de usuários
         $totalUsuarios = \App\Models\User::count();
 
-        return view('home', compact('totalItens', 'totalUsuarios'));
+        // Recupera o total de localidades
+        $totalLocalidades = \App\Models\Localidade::count();
+
+        // Passa as variáveis para a view
+        return view('home', compact('totalItens', 'totalUsuarios', 'totalLocalidades'));
     }
 }

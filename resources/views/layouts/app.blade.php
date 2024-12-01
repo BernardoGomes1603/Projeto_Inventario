@@ -7,7 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Título da página -->
+    <title>Empresa W.</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -16,11 +20,86 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Estilos Personalizados -->
+    <style>
+        body {
+            background-color: #f9fafb; /* Fundo claro */
+            color: #000000; /* Texto preto */
+        }
+
+        .navbar {
+            background-color: #007BFF; /* Azul */
+        }
+
+        .navbar-brand {
+            color: #ffffff; /* Texto branco no logo */
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff; /* Texto branco nos links */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffd700; /* Amarelo para hover */
+        }
+
+        .btn {
+            background-color: #28a745; /* Verde */
+            border-color: #28a745;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .dropdown-menu {
+            background-color: #f1f1f1; /* Fundo claro */
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #dcdfe3;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Botão de login estilizado */
+        .nav-link {
+            padding: 8px 15px;
+            background-color: #ffffff;
+            color: #007bff;
+            border-radius: 50px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #e9f5ff;
+        }
+
+        /* Para melhorar a visibilidade do texto em branco */
+        .navbar-nav .nav-link, .navbar-brand {
+            color: #333333; /* Preto/escuro para garantir o contraste */
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: #333333; /* Texto mais escuro nos itens do menu */
+        }
+
+        .container {
+            max-width: 90%; /* Para permitir mais espaço */
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     Empresa W.
@@ -31,9 +110,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
+                    <ul class="navbar-nav me-auto"></ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

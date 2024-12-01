@@ -23,12 +23,33 @@ class LocalidadeController extends Controller
     /**
      * Exibe a lista de localidades.
      */
-    public function index(): View
+    public function index(Request $request)
     {
-        $localidades = Localidade::latest()->paginate(5);
+        $query = Localidade::query();
+
+        // Filtrando pelo nome, endereço ou contato
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('nome', 'like', "%{$search}%")
+                  ->orWhere('endereco', 'like', "%{$search}%")
+                  ->orWhere('contato', 'like', "%{$search}%");
+        }
+
+        // Ordenação
+        if ($request->has('sort') && in_array($request->sort, ['id', 'nome', 'endereco', 'contato'])) {
+            $sort = $request->sort;
+            $direction = $request->direction == 'desc' ? 'desc' : 'asc';
+            $query->orderBy($sort, $direction);
+        }
+
+        // Paginação
+        $localidades = $query->paginate(50);
+
         return view('localidades.index', compact('localidades'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
+
+
 
     /**
      * Exibe o formulário de criação de uma nova localidade.

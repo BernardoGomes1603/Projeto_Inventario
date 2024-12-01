@@ -30,7 +30,7 @@ class StatuController extends Controller
      */
     public function index(): View
     {
-        $status = status::latest()->paginate(5);
+        $status = status::latest()->paginate(1000);
         return view('status.index', compact('status'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }

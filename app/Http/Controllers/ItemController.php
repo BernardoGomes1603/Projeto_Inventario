@@ -20,13 +20,40 @@ class ItemController extends Controller
         $this->middleware('permission:item-delete', ['only' => ['destroy']]);
     }
 
-    public function index(): View
+    public function index(Request $request)
     {
-        $itens = Item::with(['localidade', 'user', 'status'])->latest()->paginate(5);
+        // Iniciar a consulta para os itens
+        $query = Item::query();
 
-        return view('itens.index', compact('itens'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        // Filtro de busca (por modelo, especificações, ou descrição)
+        if ($request->has('search') && $request->get('search') != '') {
+            $search = $request->get('search');
+            $query->where('modelo', 'LIKE', "%{$search}%")
+                  ->orWhere('especificacoes', 'LIKE', "%{$search}%")
+                  ->orWhere('descricao', 'LIKE', "%{$search}%");
+        }
+
+        // Ordenação
+        $sort = $request->get('sort_by', 'id');  // Se não houver um parâmetro 'sort_by', usa 'id' como padrão
+        $direction = $request->get('order', 'asc');  // Se não houver um parâmetro 'order', usa 'asc' como padrão
+
+        // Verifica se a ordenação é por um campo da tabela 'localidade'
+        if ($sort === 'localidade') {
+            $query->join('localidades', 'items.localidade_id', '=', 'localidades.id')
+                  ->orderBy('localidades.nome', $direction);  // Ordena pelo nome da localidade
+        } else {
+            // Ordenação normal para os campos na tabela 'items'
+            $query->orderBy($sort, $direction);
+        }
+
+        // Recuperar os itens com paginação
+        $itens = $query->paginate(1000 );  // Ajuste para 10 itens por página
+
+        // Passar os itens para a view
+        return view('itens.index', compact('itens'));
     }
+
+
 
     public function create(): View
     {
