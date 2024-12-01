@@ -21,37 +21,44 @@ class ItemController extends Controller
     }
 
     public function index(Request $request)
-    {
-        // Iniciar a consulta para os itens
-        $query = Item::query();
+{
+    // Iniciar a consulta para os itens
+    $query = Item::query();
 
-        // Filtro de busca (por modelo, especificações, ou descrição)
-        if ($request->has('search') && $request->get('search') != '') {
-            $search = $request->get('search');
-            $query->where('modelo', 'LIKE', "%{$search}%")
-                  ->orWhere('especificacoes', 'LIKE', "%{$search}%")
-                  ->orWhere('descricao', 'LIKE', "%{$search}%");
-        }
-
-        // Ordenação
-        $sort = $request->get('sort_by', 'id');  // Se não houver um parâmetro 'sort_by', usa 'id' como padrão
-        $direction = $request->get('order', 'asc');  // Se não houver um parâmetro 'order', usa 'asc' como padrão
-
-        // Verifica se a ordenação é por um campo da tabela 'localidade'
-        if ($sort === 'localidade') {
-            $query->join('localidades', 'items.localidade_id', '=', 'localidades.id')
-                  ->orderBy('localidades.nome', $direction);  // Ordena pelo nome da localidade
-        } else {
-            // Ordenação normal para os campos na tabela 'items'
-            $query->orderBy($sort, $direction);
-        }
-
-        // Recuperar os itens com paginação
-        $itens = $query->paginate(1000 );  // Ajuste para 10 itens por página
-
-        // Passar os itens para a view
-        return view('itens.index', compact('itens'));
+    // Filtro de busca (por modelo, especificações, ou descrição)
+    if ($request->has('search') && $request->get('search') != '') {
+        $search = $request->get('search');
+        $query->where('modelo', 'LIKE', "%{$search}%")
+              ->orWhere('especificacoes', 'LIKE', "%{$search}%")
+              ->orWhere('descricao', 'LIKE', "%{$search}%");
     }
+
+    // Ordenação
+    $sort = $request->get('sort_by', 'id');  // Campo de ordenação (padrão: 'id')
+    $direction = $request->get('order', 'asc');  // Direção da ordenação (padrão: 'asc')
+
+    // Ordenação por colunas relacionadas
+    if ($sort === 'localidade') {
+        $query->join('localidades', 'items.localidade_id', '=', 'localidades.id')
+              ->orderBy('localidades.nome', $direction);  // Ordena pelo nome da localidade
+    } elseif ($sort === 'user') {
+        $query->join('users', 'items.user_id', '=', 'users.id')
+              ->orderBy('users.name', $direction);  // Ordena pelo nome do usuário
+    } elseif ($sort === 'status') {
+        $query->join('status', 'items.status_id', '=', 'status.id')
+              ->orderBy('status.descricao', $direction);  // Ordena pela descrição do status
+    } else {
+        // Ordenação normal para os campos na tabela 'items'
+        $query->orderBy($sort, $direction);
+    }
+
+    // Recuperar os itens com paginação
+    $itens = $query->paginate(100);  // Paginação ajustada para 10 itens por página
+
+    // Passar os itens para a view
+    return view('itens.index', compact('itens'));
+}
+
 
 
 
